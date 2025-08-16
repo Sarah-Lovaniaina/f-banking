@@ -1,0 +1,93 @@
+/* Wrapper principal en plein écran et centré */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: #f5f5f5; 
+  padding: 30px;
+  color: black;
+}
+
+/* Container toujours centré et responsive */
+.container {
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Le reste de ton CSS inchangé */
+
+.text-bold {
+  font-weight: bold;
+}
+
+.container .col {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .row {
+  text-align: start;
+  margin-bottom: 10px;
+}
+
+.container .row label {
+  font-weight: bold;
+}
+
+.container .row input {
+  padding: 10px;
+  border-style: ridge;
+  background-color: white;
+  border-radius: 5px;
+  border-color: #30384e;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container .row button {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #182f70;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container .row button:hover {
+  background-color: #12265c;
+}
+
+.container .text-primary {
+  float: left;
+  color: rgb(57, 57, 155);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
