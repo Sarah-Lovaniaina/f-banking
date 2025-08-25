@@ -59,6 +59,14 @@ const Dashboard = () => {
   const formatDate = (dateStr) => {
     return dateStr.split("T")[0];
   };
+  const formatDateClient = (dateStr) => {
+    if (!dateStr) return "Chargement...";
+    const date = new Date(dateStr);
+    return `${date.getDate().toString().padStart(2,'0')}/${
+      (date.getMonth()+1).toString().padStart(2,'0')
+    }/${date.getFullYear()}`;
+  };
+  
 
   return (
     <div className="dash-content">
@@ -106,7 +114,9 @@ const Dashboard = () => {
           </span>
           <br />
           <br />
-          <span>Cree le : {clientInfo.DateOuverture}</span>
+          {/* <span>Cree le : {clientInfo.DateOuverture}</span> */}
+          <span>Cree le : {formatDateClient(clientInfo.DateOuverture)}</span>
+
         </div>
 
         <div className="card-box">
@@ -158,7 +168,7 @@ const Dashboard = () => {
         </div>
 
         <div className="table">
-          <h2>Resume des dernieres trasanctions</h2>
+          <h2 className="table_title">Resumé des dernières transactions</h2>
           <table className="custom-table">
             <thead>
               <tr>
@@ -181,7 +191,26 @@ const Dashboard = () => {
                       })}{" "}
                       Ar
                     </td>
-                    <td data-label="Statut">{item.StatusP}</td>
+                    {/* <td data-label="Statut">{item.StatusP}</td> */}
+                    {/* <td
+  data-label="Statut"
+  style={{
+    color:
+      item.StatusP === "accepte" || item.StatusP === "succes"
+        ? "green"
+        : item.StatusP === "refuse"
+        ? "red"
+        : "orange",
+    fontWeight: "bold",
+    textTransform: "capitalize", // optionnel pour majuscule au début
+  }}
+>
+  {item.StatusP || "en attente"}
+</td> */}
+
+<td data-label="Statut">{item.StatusP || "En attente"}</td>
+
+
                   </tr>
                 ))
               ) : (

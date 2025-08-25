@@ -51,12 +51,12 @@ const Pret = () => {
   const [user, setUser] = useState({});
   const [clientInfo, setClientInfo] = useState({});
   const [pret, setPret] = useState({
-    montant: 0,
+    montant: "", //montant: 0,
     numCompte: "",
     duree: "",
     motif: "",
     codePin: "",
-    revenu: 0,
+    revenu: "", //revenu: 0,
   });
 
   const [numCompte, setNumCompte] = useState("");
@@ -112,7 +112,7 @@ const Pret = () => {
       cell: (row) => (
         <FontAwesomeIcon
           icon={faTimes}
-          style={{ color: "red", fontSize: "20px", cursor: "pointer" }}
+          style={{ color: "red", fontSize: "20px", cursor: "pointer", }}
           onClick={() => deleteHistorique(row.NumOp)}
         />
       ),
@@ -334,12 +334,18 @@ const Pret = () => {
           value={pret.revenu}
           onChange={handleChange}
           placeholder="Revenu mensuel"
+          style={{
+            color: "#000",
+            WebkitAppearance: "none",
+            MozAppearance: "textfield",
+          }}
         />
         <textarea
           name="motif"
           value={pret.motif}
           onChange={handleChange}
           placeholder="Motif de la demande"
+          style={{ color: "#000",}}
         ></textarea>
 
         <input
@@ -350,6 +356,8 @@ const Pret = () => {
           inputMode="numeric"
           pattern="[0-9]*"
           maxLength={4}
+          style={{ color: "#000",}}
+          autoComplete="new-password"  // indique que ce n’est pas un mot de passe enregistré
           onChange={(e) => {
             const onlyNums = e.target.value.replace(/\D/, "");
             setPret({ ...pret, codePin: onlyNums });

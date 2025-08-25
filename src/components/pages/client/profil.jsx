@@ -103,7 +103,7 @@ const Profil = () => {
   };
 
   return (
-    <div className="container-profil">
+    <div className="container-profil" style={{color: "black"}}>
       <h2>Profil et Sécurité</h2>
       <section>
         <h3>Informations du Profil</h3>
@@ -114,7 +114,7 @@ const Profil = () => {
           </div>
           <div className="col-profil">
             <label>Email</label>
-            <input type="email" value={user.email} />
+            <input type="email" disabled value={user.email} />
           </div>
           <div className="col-profil">
             <label>Téléphone</label>

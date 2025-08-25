@@ -281,7 +281,7 @@ const Client = () => {
   const deleteClient = (id) => {
     swal({
       title: "Êtes-vous sûr ?",
-      text: "Une fois supprimé, vous ne pourrez plus récupérer cet information !",
+      text: "Une fois supprimée, vous ne pourrez plus récupérer cette information !",
       icon: "warning",
       buttons: {
         confirm: {
@@ -495,7 +495,7 @@ const Client = () => {
 
       doc.save(`liste_client.pdf`);
     } else {
-      swal(`Desole! Aucun donnee a exporter`, {
+      swal(`Desole! Aucune donnée à exporter`, {
         icon: "error",
         buttons: {
           confirm: {
@@ -762,6 +762,7 @@ const Client = () => {
                 gap: "5px",
                 backgroundColor: "transparent",
                 border: "1px ridge green",
+                color:"black",
               }}
             >
               <FontAwesomeIcon style={{ color: "red" }} icon={faFilePdf} />
@@ -775,6 +776,7 @@ const Client = () => {
                 gap: "5px",
                 backgroundColor: "transparent",
                 border: "1px ridge green",
+                color:"black",
               }}
             >
               <FontAwesomeIcon style={{ color: "green" }} icon={faFileExcel} />
@@ -859,6 +861,7 @@ const Client = () => {
                   borderRadius: "4px",
                   border: "1px solid #ccc",
                   width: "300px",
+                  color:"black",
                 }}
               />
             }

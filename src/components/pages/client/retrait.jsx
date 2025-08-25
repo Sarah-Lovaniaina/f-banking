@@ -46,7 +46,7 @@ const Retrait = () => {
   const [retraitData, setRetraitData] = useState([]);
   const [retrait, setRetrait] = useState({
     type: "Retrait",
-    montant: 0,
+    montant: "",//montant: 0,
     numCompte: "",
     destinataire: "",
     motif: "",
@@ -122,7 +122,7 @@ const Retrait = () => {
         setUser(rep.data.user);
       })
       .catch((err) => {
-        console.log("Uitlisateur non connecte: ", err);
+        console.log("Uitlisateur non connecté: ", err);
       });
   }, []);
 
@@ -403,6 +403,7 @@ const Retrait = () => {
           placeholder="Motif (optionnel)"
           value={retrait.motif}
           onChange={handleChange}
+          style={{ color: "#000",}}
         ></textarea>
         <input
           type="password"
@@ -412,6 +413,7 @@ const Retrait = () => {
           inputMode="numeric" // affiche le pavé numérique sur mobile
           pattern="[0-9]*" // hint pour le navigateur
           maxLength={4} // si le code PIN est à 4 chiffres
+          autoComplete="new-password"
           onChange={(e) => {
             const onlyNums = e.target.value.replace(/\D/, "");
             setRetrait({ ...retrait, codePin: onlyNums });

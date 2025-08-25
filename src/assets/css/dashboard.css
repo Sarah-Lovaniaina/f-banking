@@ -85,6 +85,11 @@
     width: 100%; */
 }
 
+.table_title{
+  color: black;
+  /* font-size: "25px"; */
+  Weight: "bold";
+}
 .graphic-view {
     flex: 1;
     padding: 10px;
@@ -114,6 +119,7 @@
 .custom-table {
   overflow-x: auto;
   width: 100%;
+  color: rgb(94, 94, 94);
   /* min-width: 300px; */
   border-collapse: collapse;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -202,6 +208,7 @@
   .tableContent {
         flex-direction: column;
         padding: 20px 0;
+        color: black;
     }
 
   .graphic-view {
@@ -215,7 +222,6 @@
     min-width: 600px; 
    
   }
-
 
 }
 

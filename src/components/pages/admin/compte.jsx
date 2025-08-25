@@ -150,6 +150,11 @@ const Compte = () => {
             ") "
           }`}
           data-tooltip-id="numCompte"
+
+          style={{
+          width: "150px",
+          justifyContent:"left"
+        }}
         >
           {row.NumCompte.replace(/(.{4})/g, "$1 ").trim()}
         </div>
@@ -194,13 +199,13 @@ const Compte = () => {
       name: "Status",
       selector: (row) => (
         <div
-        // style={{
-        //   padding: "5px",
-        //   width: "70px",
-        //   backgroundColor: "green",
-        //   borderRadius: "5px",
-        //   color: "white",
-        // }}
+        style={{
+          padding: "5px",
+          width: "70px",
+          backgroundColor: "green",
+          borderRadius: "5px",
+          color: "white",
+        }}
         >
           {row.StatusCompte}
         </div>
@@ -406,7 +411,7 @@ const Compte = () => {
   const deleteCompte = (num) => {
     swal({
       title: "Êtes-vous sûr ?",
-      text: "Une fois supprimé, vous ne pourrez plus récupérer cet information !",
+      text: "Une fois supprimé, vous ne pourrez plus récupérer cette information !",
       icon: "warning",
       buttons: {
         confirm: {
@@ -422,6 +427,7 @@ const Compte = () => {
     }).then((willDelete) => {
       if (willDelete) {
         api.delete(`operations/compte/${num}`).then((rep) => {
+          
           if (rep.data.success) {
             swal(`${rep.data.message}`, {
               icon: "success",
@@ -432,7 +438,8 @@ const Compte = () => {
               },
             });
             loadCompteData();
-          } else {
+           }
+           else {
             swal(`${rep.data.message}`, {
               icon: "error",
               buttons: {
@@ -527,7 +534,7 @@ const Compte = () => {
 
       doc.save(`liste_compte.pdf`);
     } else {
-      swal(`Desole! Aucun donnee a exporter`, {
+      swal(`Desole! Aucune donnée à exporter`, {
         icon: "error",
         buttons: {
           confirm: {
@@ -791,6 +798,7 @@ const Compte = () => {
                 gap: "5px",
                 backgroundColor: "transparent",
                 border: "1px ridge green",
+                color:"black",
               }}
             >
               <FontAwesomeIcon style={{ color: "red" }} icon={faFilePdf} />
@@ -804,6 +812,7 @@ const Compte = () => {
                 gap: "5px",
                 backgroundColor: "transparent",
                 border: "1px ridge green",
+                color:"black",
               }}
             >
               <FontAwesomeIcon style={{ color: "green" }} icon={faFileExcel} />
@@ -923,6 +932,7 @@ const Compte = () => {
                   borderRadius: "4px",
                   border: "1px solid #ccc",
                   width: "300px",
+                  color:"black",
                 }}
               />
             }

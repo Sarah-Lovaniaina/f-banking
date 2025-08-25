@@ -43,15 +43,31 @@ exports.getAllRetrait = async (req, res) => {
   }
 };
 
+// exports.getAllVirement = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const data = await OperationService.getAllSend(id);
+//     res.status(201).json(data);
+//   } catch (error) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 exports.getAllVirement = async (req, res) => {
   const { id } = req.params;
   try {
     const data = await OperationService.getAllSend(id);
+
+    // Vérifie que StatusP existe, sinon mettre "en attente"
+    data.forEach(v => {
+      if (!v.StatusP) v.StatusP = "en attente";
+    });
+
     res.status(201).json(data);
   } catch (error) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.getAllOperations = async (req, res) => {
   const { id } = req.params;
@@ -105,7 +121,8 @@ exports.doRetrait = async (req, res) => {
 
 exports.doVirement = async (req, res) => {
   const { numCompte, destinataire, montant, motif, codePin } = req.body;
-  try {
+
+    try {
     const date = new Date();
     const formattedDate = date.toISOString().split("T")[0];
 
@@ -115,6 +132,7 @@ exports.doVirement = async (req, res) => {
       Montant: montant,
       NumDest: destinataire,
       Motif: motif,
+      StatusP: "Succes",
       DateOp: formattedDate,
       Discriminator: "Virement",
     };
@@ -137,6 +155,8 @@ exports.doVirement = async (req, res) => {
       message: error.message,
     });
   }
+
+  
 };
 
 exports.doPret = async (req, res) => {
@@ -150,7 +170,7 @@ exports.doPret = async (req, res) => {
       NumCompte: numCompte,
       Montant: montant,
       Motif: motif,
-      StatusP: "En attente",
+      StatusP: "Succes",
       Duree: duree,
       Revenu: revenu,
       DateOp: formattedDate,
@@ -244,7 +264,7 @@ exports.deleteHistorique = async (req, res) => {
   try {
     const deleted = await OperationService.deleteHistorique(id);
     if (deleted) {
-      res.json({ success: true, message: "Information supprimé" });
+      res.json({ success: true, message: "Information supprimée" });
     }
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

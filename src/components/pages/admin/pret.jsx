@@ -127,6 +127,7 @@ const Pret = () => {
             width: "100%",
             backgroundColor: "#fffcc8",
             border: "1px solid #ccc",
+            color:"black",
           }}
           onChange={(e) => updatePret(row.NumOp, e.target.value)}
           defaultValue=""

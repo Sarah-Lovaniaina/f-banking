@@ -117,7 +117,7 @@ const Profil = () => {
           </div>
           <div className="col-profil">
             <label>Email</label>
-            <input type="email" value={user.email} />
+            <input type="email" disabled value={user.email} />
           </div>
           <div className="col-profil">
             <label>Téléphone</label>

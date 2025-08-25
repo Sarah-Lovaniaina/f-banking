@@ -5,8 +5,8 @@ const Connexion = sequelize.define(
   "Connexion",
   {
     IdCon: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    Email: { type: DataTypes.STRING, allowNull: false },
-    Mdp: { type: DataTypes.STRING, allowNull: false },
+    Email: { type: DataTypes.STRING(150), allowNull: false },
+    Mdp: { type: DataTypes.STRING(150), allowNull: false },
     UtilisateurId: {
       type: DataTypes.INTEGER,
       references: {

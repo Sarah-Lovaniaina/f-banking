@@ -96,12 +96,13 @@ exports.deleteCompte = async (req, res) => {
   const { id } = req.params;
   try {
     await CompteService.deleteCompte(id);
-    res.status(204).json({
+    res.json({
       success: true,
       message: "Compte supprimé avec succès",
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log(err.message)
+    res.json({success: false, message: "Erreur" });
   }
 };
 

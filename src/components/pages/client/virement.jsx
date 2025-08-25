@@ -46,7 +46,7 @@ const Virement = () => {
     type: "Virement",
     date: new Date().toLocaleString("fr-FR"),
     titulaire: "",
-    montant: 0,
+    montant: "",//montant:0
     numCompte: "",
     motif: "",
     destinataire: "",
@@ -81,19 +81,20 @@ const Virement = () => {
       name: "Status",
       selector: (row) => (
         <div
-        // style={{
-        //   padding: "5px",
-        //   width: "70px",
-        //   backgroundColor: "green",
-        //   borderRadius: "5px",
-        //   color: "white",
-        // }}
+          style={{
+            padding: "5px",
+            width: "70px",
+            backgroundColor: "green",
+            borderRadius: "5px",
+            color: "white", 
+            textAlign: "center",
+          }}
         >
-          {row.StatusP}
+          {row.StatusP}  
         </div>
       ),
       sortable: true,
-    },
+    },    
     {
       name: "Actions",
       cell: (row) => (
@@ -148,6 +149,33 @@ const Virement = () => {
     });
   };
 
+  // const loadVirementData = () => {
+  //   api.get(`/operations/virement/${numCompte}`)
+  //     .then((rep) => {
+  //       console.log("Données reçues :", rep.data); // 👈 affiche les données dans la console
+  //       setVirementData(rep.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Erreur chargement virement :", err);
+  //     });
+  // };
+// const loadVirementData = () => {
+//   api.get(`/operations/virement/${numCompte}`)
+//     .then((rep) => {
+//       console.log("Données reçues :", rep.data);
+//       if (rep.data.length > 0) {
+//         console.log("Exemple d'objet :", rep.data[0]);
+//       } else {
+//         console.log("Aucun virement trouvé pour ce compte.");
+//       }
+//       setVirementData(rep.data);
+//     })
+//     .catch((err) => {
+//       console.error("Erreur chargement virement :", err);
+//     });
+// };
+  
+
   const resetData = () => {
     setVirement({
       type: "Virement",
@@ -170,11 +198,130 @@ const Virement = () => {
     setVirement({ ...virement, [name]: value });
   };
 
+  // const doVirement = () => {
+  //   const dataToSend = {
+  //     ...virement,
+  //     destinataire: virement.destinataire.replace(/\s/g, ""),
+  //   };
+
+  //   if(!dataToSend.destinataire || !dataToSend.codePin || dataToSend.montant > 2000){
+       
+  //   api
+  //     .post("/operations/virement", dataToSend)
+  //     .then((rep) => {
+  //       if (!rep.data.success) {
+  //         swal({
+  //           title: "Erreur",
+  //           text: rep.data.message || "Une erreur s'est produite",
+  //           icon: "error",
+  //           buttons: {
+  //             confirm: {
+  //               className: "btn btn-danger",
+  //             },
+  //           },
+  //         });
+  //         return;
+  //       }
+  //       swal({
+  //         title: "Succès",
+  //         text: rep.data.message,
+  //         icon: "success",
+  //         buttons: {
+  //           confirm: {
+  //             className: "btn btn-success",
+  //             text: "OK",
+  //           },
+  //         },
+  //       }).then(() => {
+  //         swal({
+  //           title: "Impression du reçu",
+  //           text: "Souhaitez-vous imprimer le reçu ?",
+  //           icon: "info",
+  //           buttons: {
+  //             cancel: {
+  //               text: "Non",
+  //               visible: true,
+  //               className: "btn btn-secondary",
+  //             },
+  //             confirm: {
+  //               text: "Oui",
+  //               className: "btn btn-primary",
+  //             },
+  //           },
+  //         }).then((willPrint) => {
+  //           if (willPrint) {
+  //             generatePDF();
+  //           }
+  //         });
+  //         loadVirementData();
+  //         resetData();
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       swal({
+  //         title: "Erreur",
+  //         text: err.response?.data?.message || "Une erreur s'est produite",
+  //         icon: "error",
+  //         buttons: {
+  //           confirm: {
+  //             className: "btn btn-danger",
+  //           },
+  //         },
+  //       });
+  //     });
+  //   }
+  //   if (dataToSend.destinataire === "" || dataToSend.montant<2000 || dataToSend.codePin === ""){
+  //      swal({
+  //     title: "Erreur",
+  //     text: "Les champs ne doivent pas etre vide",
+  //     icon: "error",
+  //     buttons: {
+  //       confirm: {
+  //         className: "btn btn-danger",
+  //       },
+  //     },
+  //   });
+  //   }
+   
+  
+  // };
   const doVirement = () => {
     const dataToSend = {
       ...virement,
-      destinataire: virement.destinataire.replace(/\s/g, ""),
+      destinataire: virement.destinataire.replace(/\s/g, ""), // enlever les espaces
     };
+  
+    // 🔹 Vérification des champs vides
+    if (!dataToSend.destinataire || !dataToSend.codePin || dataToSend.montant<2000) {
+      swal({
+        title: "Erreur",
+        text: "Les champs ne doivent pas être vides",
+        icon: "error",
+        buttons: {
+          confirm: {
+            className: "btn btn-danger",
+          },
+        },
+      });
+      return; // on arrête ici
+    }
+  
+    // 🔹 Vérification du montant
+    if (dataToSend.montant > 2000) {
+      swal({
+        title: "Erreur",
+        text: "Le montant ne doit pas dépasser 2000",
+        icon: "error",
+        buttons: {
+          confirm: {
+            className: "btn btn-danger",
+          },
+        },
+      });
+      return; // on arrête ici
+    }
+  
+    // ✅ Si tout est correct → faire l'appel API
     api
       .post("/operations/virement", dataToSend)
       .then((rep) => {
@@ -191,6 +338,8 @@ const Virement = () => {
           });
           return;
         }
+  
+        
         swal({
           title: "Succès",
           text: rep.data.message,
@@ -202,6 +351,7 @@ const Virement = () => {
             },
           },
         }).then(() => {
+          
           swal({
             title: "Impression du reçu",
             text: "Souhaitez-vous imprimer le reçu ?",
@@ -222,6 +372,8 @@ const Virement = () => {
               generatePDF();
             }
           });
+  
+      
           loadVirementData();
           resetData();
         });
@@ -239,11 +391,12 @@ const Virement = () => {
         });
       });
   };
+  
 
   const deleteHistorique = (numOp) => {
     swal({
       title: "Êtes-vous sûr ?",
-      text: "Une fois supprimé, vous ne pourrez plus récupérer cet information !",
+      text: "Une fois supprimée, vous ne pourrez plus récupérer cette information !",
       icon: "warning",
       buttons: {
         confirm: {
@@ -268,7 +421,7 @@ const Virement = () => {
                 },
               },
             });
-            loadPretData();
+            loadVirementData();
           } else {
             swal(`${rep.data.message}`, {
               icon: "error",
@@ -278,7 +431,7 @@ const Virement = () => {
                 },
               },
             });
-            loadPretData();
+            loadVirementData();
           }
         });
       } else {
@@ -389,12 +542,19 @@ const Virement = () => {
           value={virement.montant}
           onChange={handleChange}
           placeholder="Montant à transferer"
+          min="0"
+          style={{
+            color: "#000",
+            WebkitAppearance: "none",
+            MozAppearance: "textfield",
+          }}
         />
         <textarea
           placeholder="Motif du virement"
           name="motif"
           value={virement.motif}
           onChange={handleChange}
+          style={{ color: "#000", backgroundColor: "white" }} // 👈 couleur forcée
         ></textarea>
         <input
           type="password"
@@ -404,11 +564,15 @@ const Virement = () => {
           inputMode="numeric" // affiche le pavé numérique sur mobile
           pattern="[0-9]*" // hint pour le navigateur
           maxLength={4} // si le code PIN est à 4 chiffres
+         // autoComplete="off"  // 👈 empêche le navigateur de remplir automatiquement
+          style={{ color: "#000",}}
+          autoComplete="new-password"  // 👈 indique que ce n’est pas un mot de passe enregistré
           onChange={(e) => {
             const onlyNums = e.target.value.replace(/\D/, "");
             setVirement({ ...virement, codePin: onlyNums });
           }}
         />
+
         <button
           onClick={() => {
             doVirement();

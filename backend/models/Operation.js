@@ -6,15 +6,15 @@ const Operation = sequelize.define(
   {
     NumOp: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     Montant: { type: DataTypes.DOUBLE, allowNull: false },
-    Motif: { type: DataTypes.STRING, allowNull: true },
+    Motif: { type: DataTypes.STRING(20), allowNull: true },
     DateOp: { type: DataTypes.DATE, allowNull: false },
-    NumDest: { type: DataTypes.STRING, allowNull: true },
-    StatusP: { type: DataTypes.STRING, allowNull: true },
-    Duree: { type: DataTypes.STRING, allowNull: true },
+    NumDest: { type: DataTypes.STRING(20), allowNull: true },
+    StatusP: { type: DataTypes.STRING(10), allowNull: true },
+    Duree: { type: DataTypes.STRING(7), allowNull: true },
     Revenu: { type: DataTypes.DOUBLE, allowNull: true },
-    Discriminator: { type: DataTypes.STRING, allowNull: false },
+    Discriminator: { type: DataTypes.STRING(20), allowNull: false },
     NumCompte: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       references: {
         model: "Compte",
         key: "NumCompte",
